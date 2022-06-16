@@ -8,12 +8,14 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.pokedexgruposalinas.R
-import com.example.pokedexgruposalinas.home.adapter.AbilitiesRvAdapter
+import com.example.pokedexgruposalinas.home.adapter.AbilityRvAdapter
+import com.example.pokedexgruposalinas.home.adapter.RecyclerViewAdapter
 import com.example.pokedexgruposalinas.home.viewModel.AbilitiesActivityViewModel
+import kotlinx.android.synthetic.main.activity_habilities.*
 
 class AbilitiesActivity : AppCompatActivity() {
 
-    lateinit var rvAbilities: RecyclerView
+    private lateinit var rvAbilities: RecyclerView
     private lateinit var viewModel: AbilitiesActivityViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -25,16 +27,16 @@ class AbilitiesActivity : AppCompatActivity() {
     }
 
     private fun initUI(){
-        val pokemonName = intent.extras?.get("name") as String
-
         rvAbilities = findViewById(R.id.rvAbilities)
         rvAbilities.layoutManager = LinearLayoutManager(this)
+        rvAbilities.adapter = AbilityRvAdapter()
+        val pokemonName = intent.extras?.get("name") as String
 
         viewModel.getHabilities(pokemonName)
         Log.d("TAG", "initUI: ${viewModel.abilitiesList}")
 
         viewModel.abilitiesList.observe(this, Observer { list ->
-            (rvAbilities.adapter as AbilitiesRvAdapter).setData(list)
+            (rvAbilities.adapter as AbilityRvAdapter).setData(list)
         })
 
     }

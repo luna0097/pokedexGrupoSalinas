@@ -1,6 +1,5 @@
 package com.example.pokedexgruposalinas.home.adapter
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,28 +8,31 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.pokedexgruposalinas.R
 import com.example.pokedexgruposalinas.home.data.model.response.abilityData
 
-class AbilitiesRvAdapter(): RecyclerView.Adapter<AbilitiesRvAdapter.HolderAbility>() {
-
-    private var abilities: List<abilityData> = emptyList()
+class AbilityRvAdapter(): RecyclerView.Adapter<AbilityRvAdapter.AbilityHolder>() {
+    private var abilityList: List<abilityData> = emptyList()
     fun setData(list: List<abilityData>){
-        Log.d("TAG", "setData: $list")
-        abilities = list
+        abilityList = list
         notifyDataSetChanged()
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HolderAbility {
+
+    class AbilityHolder(view : View): RecyclerView.ViewHolder(view)
+
+    override fun onCreateViewHolder(
+        parent: ViewGroup,
+        viewType: Int
+    ): AbilityHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
-        return HolderAbility(layoutInflater.inflate(R.layout.habiliti_item, parent, false))
+        return AbilityHolder(layoutInflater.inflate(R.layout.ability_item, parent, false))
     }
 
-    override fun onBindViewHolder(holder: HolderAbility, position: Int) {
-        val ability = abilities[position]
+    override fun onBindViewHolder(holder: AbilityHolder, position: Int) {
+        val ability = abilityList[position]
+
         holder.itemView.findViewById<TextView>(R.id.tvAbility).text = ability.name
     }
 
     override fun getItemCount(): Int {
-        return abilities.size
+        return abilityList.size
     }
-
-    class HolderAbility(view : View): RecyclerView.ViewHolder(view)
 }
