@@ -3,6 +3,7 @@ package com.example.pokedexgruposalinas.home.ui
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -27,6 +28,7 @@ class MainActivity : AppCompatActivity() {
         rvPokemons = findViewById(R.id.rvPokemons)
         rvPokemons.layoutManager = LinearLayoutManager(this)
         rvPokemons.adapter = RecyclerViewAdapter {
+            Log.d("TAG", "initRecycler: $it")
             val intent = Intent(this, DetailActivity::class.java)
             intent.putExtra("name", it)
             startActivity(intent)

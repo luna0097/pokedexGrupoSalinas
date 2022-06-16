@@ -1,6 +1,9 @@
 plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
+
+    //Para usar los layout widgets directo
+    id 'kotlin-android-extensions'
 }
 
 android {

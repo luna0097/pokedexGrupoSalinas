@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">PokedexGrupoSalinas</string>
+    <string name="pokemon_name">PokemonName</string>
+    <string name="base_happiness">Felicidad base:</string>
+    <string name="capture_rate">Tasa de captura:</string>
+    <string name="color">Color:</string>
+    <string name="eggs_group">Grupos de huevos:</string>
+    <string name="evolution_line">Linea evolutiva</string>
+    <string name="habilities">Habilidades</string>
 </resources>

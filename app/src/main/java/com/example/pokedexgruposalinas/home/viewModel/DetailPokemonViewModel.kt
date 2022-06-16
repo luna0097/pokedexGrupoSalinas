@@ -29,13 +29,14 @@ class DetailPokemonViewModel : ViewModel() {
             val call = service.getPokemonByName(name)
             call.enqueue(object : Callback<PokemonInfo> {
                 override fun onResponse(call: Call<PokemonInfo>, response: Response<PokemonInfo>) {
-                    response.body()?.let { pokemon ->
-                        pokemonInfo.postValue(pokemon)
-                        Log.d("TAG", "onResponse: $pokemon")
+                    response.body()?.let {
+                        pokemonInfo.postValue(it)
                     }
+                    Log.d("TAG", "onResponse: ${response.body()}")
                 }
 
                 override fun onFailure(call: Call<PokemonInfo>, t: Throwable) {
+                    Log.d("TAG", "onFailure: fail")
                     call.cancel()
                 }
 

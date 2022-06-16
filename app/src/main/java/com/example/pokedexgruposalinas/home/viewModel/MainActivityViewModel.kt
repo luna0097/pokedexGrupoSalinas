@@ -27,12 +27,9 @@ class MainActivityViewModel: ViewModel() {
 
     fun getPokemons(){
         CoroutineScope(Dispatchers.IO).launch {
-            val call =service.getPokemons(151)
+            val call = service.getPokemons(151)
             call.enqueue(object : Callback<PokemonApi> {
                 override fun onResponse(call: Call<PokemonApi>, response: Response<PokemonApi>) {
-                    response.body()?.result?.forEach {
-                        Log.d("TAG", "onResponse: $it")
-                    }
                     response.body()?.result?.let { list ->
                         pokemonList.postValue(list)
                     }
