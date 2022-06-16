@@ -37,7 +37,7 @@ class DetailActivity : AppCompatActivity() {
         viewModel.pokemonInfo.observe(this, Observer { pokemon ->
 
             val intentEvolutions = Intent(this, EvolutionsActivity::class.java)
-//            intentEvolutions.putExtra("url", pokemon.evolution_chain.urlEvolution_chain)
+            intentEvolutions.putExtra("url", pokemon.evolution_chain.urlEvolution_chain)
 
             btnEvolutions.setOnClickListener {
                 startActivity(intentEvolutions)

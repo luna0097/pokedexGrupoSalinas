@@ -33,6 +33,7 @@ class MainActivityViewModel: ViewModel() {
                 override fun onResponse(call: Call<PokemonApi>, response: Response<PokemonApi>) {
                     response.body()?.result?.let { list ->
                         pokemonList.postValue(list)
+                        Log.d("TAG", "getPokemons: $pokemonList")
                     }
                 }
 

@@ -10,11 +10,22 @@ import com.example.pokedexgruposalinas.R
 import com.example.pokedexgruposalinas.home.viewModel.EvolutionsLineViewModel
 
 class EvolutionsActivity : AppCompatActivity() {
+    private lateinit var viewModel: EvolutionsLineViewModel
+    private lateinit var urlEvolutions: String
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_evolutions)
 
-        Log.d("TAG", "onCreate: HOLI")
-//        initUI()
+        urlEvolutions = intent.extras?.get("url") as String
+
+        Log.d("TAG", "onCreate: $urlEvolutions")
+
+        viewModel = ViewModelProvider(this).get(EvolutionsLineViewModel::class.java)
+        initUI()
+    }
+
+    private fun initUI() {
+        viewModel.getEvolutions(urlEvolutions)
     }
 }

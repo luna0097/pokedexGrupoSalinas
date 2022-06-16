@@ -8,6 +8,7 @@ import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query
+import retrofit2.http.Url
 
 interface IApiService {
     @GET("pokemon")
@@ -19,6 +20,6 @@ interface IApiService {
     @GET("pokemon/{name}")
     fun getPokemonHabilities(@Path("name") name: String): Call<PokemonAbility>
 
-    @GET("{url}")
-    fun getPokemonEvolutions(@Path("url") url: String): Call<PokemonEvolutionResponse>
+    @GET("{path}")
+    fun getPokemonEvolutions(@Path(value = "path") path: String): Call<PokemonEvolutionResponse>
 }

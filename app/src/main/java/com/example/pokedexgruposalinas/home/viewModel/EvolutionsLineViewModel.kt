@@ -4,6 +4,7 @@ import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.pokedexgruposalinas.home.data.model.response.PokemonEvolutionResponse
+import com.example.pokedexgruposalinas.home.data.model.response.species
 import com.example.pokedexgruposalinas.home.data.service.IApiService
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -17,34 +18,42 @@ import retrofit2.converter.gson.GsonConverterFactory
 class EvolutionsLineViewModel : ViewModel() {
 
     private val retrofit = Retrofit.Builder()
-        .baseUrl("")
+        .baseUrl("https://pokeapi.co/api/v2/")
         .addConverterFactory(GsonConverterFactory.create())
         .build()
+    private val service: IApiService = retrofit.create(IApiService::class.java)
 
-    val service: IApiService = retrofit.create(IApiService::class.java)
+    val evolutions = MutableLiveData<List<species>>()
 
-    val pokemonEvolutions = MutableLiveData<PokemonEvolutionResponse>()
+    var species = mutableListOf<species>()
+
 
     fun getEvolutions(url: String){
-        Log.d("TAG", "getEvolutions: $url")
+        val path = url.substring(25)
 
         CoroutineScope(Dispatchers.IO).launch {
-//            val call = service.getPokemonEvolutions(url)
-//            Log.d("TAG", "getEvolutions: $call")
-//            call.enqueue(object : Callback<PokemonEvolutionResponse> {
-//                override fun onResponse(
-//                    call: Call<PokemonEvolutionResponse>,
-//                    response: Response<PokemonEvolutionResponse>
-//                ) {
-//                    val data = response.body()?.chain?.species
-//                    Log.d("TAG", "onResponse: $data")
-//                }
-//
-//                override fun onFailure(call: Call<PokemonEvolutionResponse>, t: Throwable) {
-//                    call.cancel()
-//                }
-//            })
+            val call = service.getPokemonEvolutions(path)
+            call.enqueue(object : Callback<PokemonEvolutionResponse> {
+                override fun onResponse(
+                    call: Call<PokemonEvolutionResponse>,
+                    response: Response<PokemonEvolutionResponse>
+                ) {
+                    response.body()?.chain?.species?.let { species.add(it) }
+                    response.body()?.chain?.evolves_to?.forEach {
+                        species.add(it.species)
+                        it.evolves_to.forEach {
+                            species.add(it.species)
+                        }
+                    }
+                    evolutions.postValue(species)
+                }
 
+                override fun onFailure(call: Call<PokemonEvolutionResponse>, t: Throwable) {
+                    call.cancel()
+                }
+
+            })
         }
+
     }
 }
