@@ -1,6 +1,5 @@
 package com.example.pokedexgruposalinas.home.viewModel
 
-import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.pokedexgruposalinas.home.data.model.response.PokemonEvolutionResponse
@@ -22,11 +21,8 @@ class EvolutionsLineViewModel : ViewModel() {
         .addConverterFactory(GsonConverterFactory.create())
         .build()
     private val service: IApiService = retrofit.create(IApiService::class.java)
-
     val evolutions = MutableLiveData<List<species>>()
-
-    var species = mutableListOf<species>()
-
+    private var species = mutableListOf<species>()
 
     fun getEvolutions(url: String){
         val path = url.substring(25)
@@ -51,7 +47,6 @@ class EvolutionsLineViewModel : ViewModel() {
                 override fun onFailure(call: Call<PokemonEvolutionResponse>, t: Throwable) {
                     call.cancel()
                 }
-
             })
         }
 
