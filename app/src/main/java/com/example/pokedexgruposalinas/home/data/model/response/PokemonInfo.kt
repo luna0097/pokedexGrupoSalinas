@@ -8,6 +8,7 @@ data class PokemonInfo(
     @SerializedName("capture_rate") val capture_rate: Int,
     @SerializedName("color") val color: PokemonColor,
     @SerializedName("egg_groups") val egg_groups: List<PokemonEggGroup>,
+    @SerializedName("evolution_chain") val evolution_chain: evolution_chain,
 )
 
 data class PokemonColor(
@@ -18,4 +19,9 @@ data class PokemonColor(
 data class PokemonEggGroup(
     @SerializedName("name") val nameEggGroup: String,
     @SerializedName("url") val urlEggGroup: String,
+)
+
+
+data class evolution_chain(
+    @SerializedName("url") val urlEvolution_chain: String,
 )
