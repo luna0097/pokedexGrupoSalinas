@@ -1,9 +1,8 @@
 package com.example.pokedexgruposalinas.home.ui
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
-import android.widget.TextView
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.example.gruposalinas.home.viewModel.DetailPokemonViewModel
@@ -20,13 +19,26 @@ class DetailActivity : AppCompatActivity() {
         viewModel = ViewModelProvider(this).get(DetailPokemonViewModel::class.java)
 
         initUI()
+
     }
 
     private fun initUI(){
-        Log.d("TAG", "initUI: entre")
         val pokemonName = intent.extras?.get("name") as String
-        Log.d("TAG", "initUI: $pokemonName")
         viewModel.getPokemonInfo(pokemonName)
+
+
+        val intentEvolutions = Intent(this, EvolutionsActivity::class.java)
+        val intentHabilities = Intent(this, AbilitiesActivity::class.java)
+        intentHabilities.putExtra("name", pokemonName)
+
+        btnEvolutions.setOnClickListener {
+            startActivity(intentEvolutions)
+        }
+
+        btnHabilities.setOnClickListener {
+            startActivity(intentHabilities)
+        }
+
 
         viewModel.pokemonInfo.observe(this, Observer { pokemon ->
             val eggs = pokemon.egg_groups.map { it.nameEggGroup }

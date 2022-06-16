@@ -16,7 +16,10 @@
         android:theme="@style/Theme.PokedexGrupoSalinas"
         tools:targetApi="31">
         <activity
-            android:name=".EvolutionsActivity"
+            android:name=".home.ui.AbilitiesActivity"
+            android:exported="false" />
+        <activity
+            android:name=".home.ui.EvolutionsActivity"
             android:exported="false" />
         <activity
             android:name=".home.ui.DetailActivity"

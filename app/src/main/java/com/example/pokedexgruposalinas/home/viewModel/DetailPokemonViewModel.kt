@@ -24,7 +24,6 @@ class DetailPokemonViewModel : ViewModel() {
     val pokemonInfo = MutableLiveData<PokemonInfo>()
 
     fun getPokemonInfo(name: String){
-        Log.d("TAG", "getPokemonInfo: $name")
         CoroutineScope(Dispatchers.IO).launch {
             val call = service.getPokemonByName(name)
             call.enqueue(object : Callback<PokemonInfo> {
@@ -32,7 +31,6 @@ class DetailPokemonViewModel : ViewModel() {
                     response.body()?.let {
                         pokemonInfo.postValue(it)
                     }
-                    Log.d("TAG", "onResponse: ${response.body()}")
                 }
 
                 override fun onFailure(call: Call<PokemonInfo>, t: Throwable) {

@@ -59,7 +59,7 @@
         app:layout_constraintTop_toBottomOf="@+id/txt4" />
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/btnEvolutions"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="100dp"
@@ -69,14 +69,14 @@
         app:layout_constraintTop_toBottomOf="@+id/txt5" />
 
     <Button
-        android:id="@+id/button2"
+        android:id="@+id/btnHabilities"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="50dp"
         android:text="@string/habilities"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button" />
+        app:layout_constraintTop_toBottomOf="@+id/btnEvolutions" />
 
     <TextView
         android:id="@+id/txtFelicidad"
