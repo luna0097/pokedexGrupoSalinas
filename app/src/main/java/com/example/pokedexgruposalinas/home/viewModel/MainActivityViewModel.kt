@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.gruposalinas.home.data.model.response.Pokemon
 import com.example.gruposalinas.home.data.model.response.PokemonApi
+import com.example.pokedexgruposalinas.home.data.model.request.RetrofitHelper
 import com.example.pokedexgruposalinas.home.data.service.IApiService
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -16,27 +17,27 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 class MainActivityViewModel: ViewModel() {
-    private val retrofit = Retrofit.Builder()
-        .baseUrl("https://pokeapi.co/api/v2/")
-        .addConverterFactory(GsonConverterFactory.create())
-        .build()
+    private val retrofit = RetrofitHelper.getRetrofit()
     private val service: IApiService = retrofit.create(IApiService::class.java)
 
     val pokemonList = MutableLiveData<List<Pokemon>>()
+    val isLoading = MutableLiveData<Boolean>()
 
     fun getPokemons(){
         CoroutineScope(Dispatchers.IO).launch {
+            isLoading.postValue(true)
             val call = service.getPokemons(151)
             call.enqueue(object : Callback<PokemonApi> {
                 override fun onResponse(call: Call<PokemonApi>, response: Response<PokemonApi>) {
                     response.body()?.result?.let { list ->
                         pokemonList.postValue(list)
-                        Log.d("TAG", "getPokemons: $pokemonList")
+                        isLoading.postValue(false)
                     }
                 }
 
                 override fun onFailure(call: Call<PokemonApi>, t: Throwable) {
                     call.cancel()
+                    isLoading.postValue(false)
                 }
 
             })

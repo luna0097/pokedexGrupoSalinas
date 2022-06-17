@@ -2,6 +2,7 @@ package com.example.pokedexgruposalinas.home.viewModel
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.example.pokedexgruposalinas.home.data.model.request.RetrofitHelper
 import com.example.pokedexgruposalinas.home.data.model.response.PokemonEvolutionResponse
 import com.example.pokedexgruposalinas.home.data.model.response.species
 import com.example.pokedexgruposalinas.home.data.service.IApiService
@@ -16,10 +17,8 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 class EvolutionsLineViewModel : ViewModel() {
 
-    private val retrofit = Retrofit.Builder()
-        .baseUrl("https://pokeapi.co/api/v2/")
-        .addConverterFactory(GsonConverterFactory.create())
-        .build()
+
+    private val retrofit = RetrofitHelper.getRetrofit()
     private val service: IApiService = retrofit.create(IApiService::class.java)
     val evolutions = MutableLiveData<List<species>>()
     private var species = mutableListOf<species>()

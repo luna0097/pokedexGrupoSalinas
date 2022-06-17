@@ -4,6 +4,7 @@ import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.gruposalinas.home.data.model.response.PokemonInfo
+import com.example.pokedexgruposalinas.home.data.model.request.RetrofitHelper
 import com.example.pokedexgruposalinas.home.data.service.IApiService
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -15,10 +16,8 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 class DetailPokemonViewModel : ViewModel() {
-    private val retrofit = Retrofit.Builder()
-        .baseUrl("https://pokeapi.co/api/v2/")
-        .addConverterFactory(GsonConverterFactory.create())
-        .build()
+
+    private val retrofit = RetrofitHelper.getRetrofit()
     private val service: IApiService = retrofit.create(IApiService::class.java)
 
     val pokemonInfo = MutableLiveData<PokemonInfo>()
@@ -34,7 +33,6 @@ class DetailPokemonViewModel : ViewModel() {
                 }
 
                 override fun onFailure(call: Call<PokemonInfo>, t: Throwable) {
-                    Log.d("TAG", "onFailure: fail")
                     call.cancel()
                 }
 

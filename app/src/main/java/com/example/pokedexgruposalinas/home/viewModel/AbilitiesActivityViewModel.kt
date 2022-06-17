@@ -4,6 +4,7 @@ import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.gruposalinas.home.data.model.response.Pokemon
+import com.example.pokedexgruposalinas.home.data.model.request.RetrofitHelper
 import com.example.pokedexgruposalinas.home.data.model.response.PokemonAbility
 import com.example.pokedexgruposalinas.home.data.model.response.ability
 import com.example.pokedexgruposalinas.home.data.model.response.abilityData
@@ -18,10 +19,8 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 class AbilitiesActivityViewModel: ViewModel() {
-    private val retrofit = Retrofit.Builder()
-        .baseUrl("https://pokeapi.co/api/v2/")
-        .addConverterFactory(GsonConverterFactory.create())
-        .build()
+
+    private val retrofit = RetrofitHelper.getRetrofit()
     private val service: IApiService = retrofit.create(IApiService::class.java)
 
     var abilitiesList = MutableLiveData<List<abilityData>>()
@@ -40,7 +39,6 @@ class AbilitiesActivityViewModel: ViewModel() {
                     }
 
                     if (!abilitiesResponse.isNullOrEmpty()){
-                        Log.d("TAG", "abilitiesResponse: $abilitiesResponse")
                         abilitiesResponse.let { list ->
                             abilitiesList.postValue(list)
                         }
@@ -50,7 +48,6 @@ class AbilitiesActivityViewModel: ViewModel() {
 
                 override fun onFailure(call: Call<PokemonAbility>, t: Throwable) {
                     call.cancel()
-                    Log.d("TAG", "onFailure: fail")
                 }
 
             })
