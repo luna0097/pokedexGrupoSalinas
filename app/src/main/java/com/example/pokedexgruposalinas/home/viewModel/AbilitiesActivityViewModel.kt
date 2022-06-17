@@ -24,10 +24,12 @@ class AbilitiesActivityViewModel: ViewModel() {
     private val service: IApiService = retrofit.create(IApiService::class.java)
 
     var abilitiesList = MutableLiveData<List<abilityData>>()
+    val isLoadingAbilities = MutableLiveData<Boolean>()
 
 
     fun getHabilities(pokemonName: String){
         CoroutineScope(Dispatchers.IO).launch {
+            isLoadingAbilities.postValue(true)
             val call = service.getPokemonHabilities(pokemonName)
             call.enqueue(object : Callback<PokemonAbility>{
                 override fun onResponse(
@@ -43,11 +45,12 @@ class AbilitiesActivityViewModel: ViewModel() {
                             abilitiesList.postValue(list)
                         }
                     }
-
+                    isLoadingAbilities.postValue(false)
                 }
 
                 override fun onFailure(call: Call<PokemonAbility>, t: Throwable) {
                     call.cancel()
+                    isLoadingAbilities.postValue(false)
                 }
 
             })

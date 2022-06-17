@@ -11,9 +11,9 @@
         android:id="@+id/txtName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="50dp"
-        android:textSize="24sp"
+        android:layout_marginTop="24dp"
         android:text="@string/pokemon_name"
+        android:textSize="32sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -24,7 +24,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="100dp"
         android:text="@string/base_happiness"
-        android:textSize="16sp"
+        android:textSize="24sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txtName" />
 
@@ -32,9 +32,9 @@
         android:id="@+id/txt3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="32dp"
         android:text="@string/capture_rate"
-        android:textSize="16sp"
+        android:textSize="24sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txt2" />
 
@@ -42,9 +42,9 @@
         android:id="@+id/txt4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="32dp"
         android:text="@string/color"
-        android:textSize="16sp"
+        android:textSize="24sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txt3" />
 
@@ -52,9 +52,9 @@
         android:id="@+id/txt5"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="32dp"
         android:text="@string/eggs_group"
-        android:textSize="16sp"
+        android:textSize="24sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txt4" />
 
@@ -62,60 +62,64 @@
         android:id="@+id/btnEvolutions"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="100dp"
+        android:layout_marginTop="32dp"
         android:text="@string/evolution_line"
+        app:layout_constraintBottom_toTopOf="@+id/btnHabilities"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txt5" />
+        app:layout_constraintTop_toBottomOf="@+id/txtEggs" />
 
     <Button
         android:id="@+id/btnHabilities"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="50dp"
         android:text="@string/habilities"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnEvolutions" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
         android:id="@+id/txtFelicidad"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
         android:text="TextView"
-        android:textSize="16sp"
+        android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="@+id/txt2"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/txt2"
-        app:layout_constraintTop_toTopOf="@+id/txt2" />
+        app:layout_constraintTop_toTopOf="@+id/txt2"
+        app:layout_constraintVertical_bias="0.0" />
 
     <TextView
         android:id="@+id/txtCaptura"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
         android:text="TextView"
-        android:textSize="16sp"
+        android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="@+id/txt3"
-        app:layout_constraintStart_toStartOf="@+id/txtFelicidad"
-        app:layout_constraintTop_toTopOf="@+id/txt3" />
+        app:layout_constraintStart_toEndOf="@+id/txt3"
+        app:layout_constraintTop_toTopOf="@+id/txt3"
+        app:layout_constraintVertical_bias="0.0" />
 
     <TextView
         android:id="@+id/txtColor"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
         android:text="TextView"
-        android:textSize="16sp"
+        android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="@+id/txt4"
-        app:layout_constraintStart_toStartOf="@+id/txtCaptura"
+        app:layout_constraintStart_toEndOf="@+id/txt4"
         app:layout_constraintTop_toTopOf="@+id/txt4" />
 
     <TextView
         android:id="@+id/txtEggs"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
         android:text="TextView"
-        android:textSize="16sp"
-        app:layout_constraintBottom_toBottomOf="@+id/txt5"
-        app:layout_constraintStart_toStartOf="@+id/txtColor"
-        app:layout_constraintTop_toTopOf="@+id/txt5" />
+        android:textSize="24sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txt5" />
 </androidx.constraintlayout.widget.ConstraintLayout>

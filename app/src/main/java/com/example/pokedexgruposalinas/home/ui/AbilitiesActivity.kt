@@ -3,15 +3,16 @@ package com.example.pokedexgruposalinas.home.ui
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import androidx.core.view.isVisible
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.pokedexgruposalinas.R
 import com.example.pokedexgruposalinas.home.adapter.AbilityRvAdapter
-import com.example.pokedexgruposalinas.home.adapter.RecyclerViewAdapter
 import com.example.pokedexgruposalinas.home.viewModel.AbilitiesActivityViewModel
-import kotlinx.android.synthetic.main.activity_habilities.*
+import kotlinx.android.synthetic.main.activity_abilities.*
+import kotlinx.android.synthetic.main.activity_main.*
 
 class AbilitiesActivity : AppCompatActivity() {
 
@@ -20,7 +21,7 @@ class AbilitiesActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_habilities)
+        setContentView(R.layout.activity_abilities)
 
         viewModel = ViewModelProvider(this).get(AbilitiesActivityViewModel::class.java)
         initUI()
@@ -38,6 +39,8 @@ class AbilitiesActivity : AppCompatActivity() {
         viewModel.abilitiesList.observe(this, Observer { list ->
             (rvAbilities.adapter as AbilityRvAdapter).setData(list)
         })
-
+        viewModel.isLoadingAbilities.observe(this, Observer {
+            pbAbilities.isVisible = it
+        })
     }
 }

@@ -23,10 +23,13 @@ class EvolutionsLineViewModel : ViewModel() {
     val evolutions = MutableLiveData<List<species>>()
     private var species = mutableListOf<species>()
 
+    val isLoadingEvolutions = MutableLiveData<Boolean>()
+
     fun getEvolutions(url: String){
         val path = url.substring(25)
 
         CoroutineScope(Dispatchers.IO).launch {
+            isLoadingEvolutions.postValue(true)
             val call = service.getPokemonEvolutions(path)
             call.enqueue(object : Callback<PokemonEvolutionResponse> {
                 override fun onResponse(
@@ -41,10 +44,12 @@ class EvolutionsLineViewModel : ViewModel() {
                         }
                     }
                     evolutions.postValue(species)
+                    isLoadingEvolutions.postValue(false)
                 }
 
                 override fun onFailure(call: Call<PokemonEvolutionResponse>, t: Throwable) {
                     call.cancel()
+                    isLoadingEvolutions.postValue(false)
                 }
             })
         }

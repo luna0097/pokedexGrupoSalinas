@@ -3,6 +3,7 @@ package com.example.pokedexgruposalinas.home.ui
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import androidx.core.view.isVisible
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
@@ -11,6 +12,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.pokedexgruposalinas.R
 import com.example.pokedexgruposalinas.home.adapter.EvolutionsRvAdapter
 import com.example.pokedexgruposalinas.home.viewModel.EvolutionsLineViewModel
+import kotlinx.android.synthetic.main.activity_evolutions.*
+import kotlinx.android.synthetic.main.activity_main.*
 
 class EvolutionsActivity : AppCompatActivity() {
     private lateinit var rvEvolutions: RecyclerView
@@ -38,6 +41,10 @@ class EvolutionsActivity : AppCompatActivity() {
 
         viewModel.evolutions.observe(this, Observer { list ->
             (rvEvolutions.adapter as EvolutionsRvAdapter).setData(list)
+        })
+
+        viewModel.isLoadingEvolutions.observe(this, Observer {
+            pbEvolutions.isVisible = it
         })
     }
 }
